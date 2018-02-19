@@ -11,6 +11,7 @@ router.register(r'items', views.ItemViewSet)
 router.register(r'users', views.UserProfileViewSet)
 router.register(r'categories', views.CategoryViewSet)
 router.register(r'item-images', views.ItemImageViewSet)
+router.register(r'favorites', views.FavoriteViewSet)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from classifieds.models import UserProfile, Item, Category, ItemImage
+from classifieds.models import UserProfile, Item, Category, ItemImage, Favorite
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -37,3 +37,8 @@ class ItemImageSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = ItemImage
         fields = ('url', 'id', 'item', 'image_id', 'image_version')
+
+class FavoriteSerializer(serializers.ModelSerializer):
+    class Meta: 
+        model = Favorite
+        fields = ('id', 'owner', 'item')

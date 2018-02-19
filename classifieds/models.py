@@ -1,9 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.functional import cached_property
 from django.template.defaultfilters import slugify
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name='user', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name='profile', null=False, blank=False, on_delete=models.CASCADE)
     phone = models.CharField(max_length=20, blank=True)
     email = models.CharField(max_length=100, blank=True)
     description = models.TextField()
@@ -41,6 +42,14 @@ class Item(models.Model):
 
     def __str__(self):
         return self.title
+
+    @cached_property
+    def featured_image(self):
+        return self.images.first()
+    
+    @cached_property
+    def image_count(self):
+        return self.images.count()
 
     class Meta:
         verbose_name = ('item')

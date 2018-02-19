@@ -1,7 +1,7 @@
-from classifieds.models import Item, Category, UserProfile, ItemImage
+from classifieds.models import Item, Category, UserProfile, ItemImage, Favorite
 from classifieds.permissions import IsOwnerOrReadOnly
 from django.contrib.auth.models import User
-from classifieds.serializers import ItemSerializer, UserProfileSerializer, CategorySerializer, ItemImageSerializer
+from classifieds.serializers import ItemSerializer, UserProfileSerializer, CategorySerializer, ItemImageSerializer, FavoriteSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -51,4 +51,9 @@ class ItemViewSet(viewsets.ModelViewSet):
 class ItemImageViewSet(viewsets.ModelViewSet):
     queryset = ItemImage.objects.all()
     serializer_class = ItemImageSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
+
+class FavoriteViewSet(viewsets.ModelViewSet):
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly)
