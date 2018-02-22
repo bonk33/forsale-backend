@@ -20,8 +20,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 from graphene_django.views import GraphQLView
 
+admin.site.site_header = 'Forsale Ghana Admin'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('classifieds.urls')),
     path('graphql', csrf_exempt(GraphQLView.as_view(graphiql=True))),
+    path('rest-auth/', include('rest_auth.urls')),
+    path('rest-auth/registration/', include('rest_auth.registration.urls'))
 ]

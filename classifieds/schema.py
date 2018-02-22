@@ -29,8 +29,9 @@ class FavoriteType(DjangoObjectType):
         model = Favorite
 
 class Query(object):
+    user = graphene.Field(UserType, id=graphene.Int())
     user_profile = graphene.Field(UserProfileType, id=graphene.Int())
-    all_users= graphene.List(UserProfileType)
+    all_userProfiles= graphene.List(UserProfileType)
 
     category = graphene.Field(CategoryType, id=graphene.Int())
     all_categories = graphene.List(CategoryType)
@@ -42,7 +43,12 @@ class Query(object):
     
     favorite = graphene.Field(FavoriteType, id=graphene.Int())
 
-    def resolve_all_users(self, info, **kwargs):
+    def resolve_user(self, info, **kwargs):
+        id = kwargs.get('id')
+        if id is not None:
+            return User.objects.get(pk=id) 
+    
+    def resolve_all_userProfiles(self, info, **kwargs):
         return UserProfile.objects.all()
     
     def resolve_user_profile(self, info, **kwargs):

@@ -1,7 +1,7 @@
 from classifieds.models import Item, Category, UserProfile, ItemImage, Favorite
-from classifieds.permissions import IsOwnerOrReadOnly
+from classifieds.permissions import IsOwnerOrReadOnly, IsStafforTargetUser
 from django.contrib.auth.models import User
-from classifieds.serializers import ItemSerializer, UserProfileSerializer, CategorySerializer, ItemImageSerializer, FavoriteSerializer
+from classifieds.serializers import UserSerializer, ItemSerializer, UserProfileSerializer, CategorySerializer, ItemImageSerializer, FavoriteSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -23,6 +23,12 @@ class GetAuthUser(APIView):
     def get(self, request, *args, **kwargs):
         serializer = UserSerializer(request.user, context={'request': request})
         return Response(serializer.data)
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (IsStafforTargetUser, permissions.AllowAny)
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset= Category.objects.all()

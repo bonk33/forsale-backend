@@ -15,7 +15,7 @@ class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ('url', 'user', 'id', 'phone', 'email', 'description')
+        fields = ('url', 'user', 'id', 'phone', 'description')
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
     items = serializers.HyperlinkedRelatedField(many=True, view_name='item-detail', read_only=True)

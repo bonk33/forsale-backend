@@ -7,6 +7,7 @@ swagger_view = get_swagger_view(title='Forsale Classifieds API')
 
 # Create a router and register our viewsets with it.
 router = DefaultRouter()
+# router.register(r'accounts', views.UserViewSet)
 router.register(r'items', views.ItemViewSet)
 router.register(r'users', views.UserProfileViewSet)
 router.register(r'categories', views.CategoryViewSet)
